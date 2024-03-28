@@ -1,26 +1,75 @@
 <script>
-  import "../index.scss";
-  import { backend } from "$lib/canisters";
+  import { onMount, onDestroy } from 'svelte';
+  onMount(() => {
+    const canvas = document.getElementById('Matrix');
+    const context = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+    const latin = '#@^&*()_+{}[]ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const nums = '0123456789';
+    const alphabet = katakana + latin + nums;
+    const fontSize = 16;
+    const columns = canvas.width/fontSize;
+    const rainDrops = [];
+    for( let x = 0; x < columns; x++ ) {
+      rainDrops[x] = 1;
+    }
+    const draw = () => {
+      context.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      
+      context.fillStyle = '#0F0';
+      context.font = fontSize + 'px monospace';
 
-  let greeting = "";
-
-  function onSubmit(event) {
-    const name = event.target.name.value;
-    backend.greet(name).then((response) => {
-      greeting = response;
-    });
-    return false;
-  }
+      for(let i = 0; i < rainDrops.length; i++)
+      {
+        const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+        context.fillText(text, i*fontSize, rainDrops[i]*fontSize);
+        
+        if(rainDrops[i]*fontSize > canvas.height && Math.random() > 0.975){
+          rainDrops[i] = 0;
+            }
+        rainDrops[i]++;
+      }
+    };
+    setInterval(draw, 30);
+      });
+      
 </script>
+<section class="canvas">
+  <canvas id="Matrix"></canvas>
+  <button id="Buy">The white rabit</button>
+  <h2>New project</h2>
+</section> 
+<style>
+  .canvas {
+    position: relative;
+    background-color: black;
+    height: 100vh;
+    overflow: hidden;
+}
+#Matrix {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
 
-<main>
-  <img src="/logo2.svg" alt="DFINITY logo" />
-  <br />
-  <br />
-  <form action="#" on:submit|preventDefault={onSubmit}>
-    <label for="name">Enter your name: &nbsp;</label>
-    <input id="name" alt="Name" type="text" />
-    <button type="submit">Click Me!</button>
-  </form>
-  <section id="greeting">{greeting}</section>
-</main>
+h2 {
+    position: absolute;
+    z-index: 1;
+    color: rgb(59, 103, 142);
+    bottom: 0;
+    left: 50%;
+    }
+#Buy{
+  position: absolute;
+    z-index: 1;
+    color: rgb(59, 103, 142);
+    bottom: 0;
+    left: 50%;
+}
+</style>
