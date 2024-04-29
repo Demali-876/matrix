@@ -14,5 +14,9 @@
   "type": "module",
   "workspaces": [
     "src/matrix_frontend"
-  ]
+  ],
+  "dependencies": {
+    "jquery": "^3.7.1",
+    "jquery.terminal": "^2.39.3"
+  }
 }

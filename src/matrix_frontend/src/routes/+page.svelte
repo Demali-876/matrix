@@ -39,8 +39,8 @@
 </script>
 <section class="canvas">
   <canvas id="Matrix"></canvas>
-  <button id="Buy">The white rabit</button>
-  <h2>New project</h2>
+  
+
 </section> 
 <style>
   .canvas {
