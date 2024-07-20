@@ -58,18 +58,4 @@
     z-index: 0;
 }
 
-h2 {
-    position: absolute;
-    z-index: 1;
-    color: rgb(59, 103, 142);
-    bottom: 0;
-    left: 50%;
-    }
-#Buy{
-  position: absolute;
-    z-index: 1;
-    color: rgb(59, 103, 142);
-    bottom: 0;
-    left: 50%;
-}
 </style>
